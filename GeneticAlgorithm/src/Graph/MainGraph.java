@@ -55,20 +55,17 @@ public class MainGraph {
         
         //Node D
         node = al.getNode('D');
-        node.addNeighbor(new Adjacent(al.getNode('A'), 16, 40));
         node.addNeighbor(new Adjacent(al.getNode('E'), 4, 60));
         node.addNeighbor(new Adjacent(al.getNode('G'), 9, 60));
         
         //Node E
         node = al.getNode('E');
-        node.addNeighbor(new Adjacent(al.getNode('B'), 15, 60));
         node.addNeighbor(new Adjacent(al.getNode('D'), 4, 60));
         node.addNeighbor(new Adjacent(al.getNode('F'), 4, 60));
         node.addNeighbor(new Adjacent(al.getNode('G'), 9, 60));
         
         //Node F
         node = al.getNode('F');
-        node.addNeighbor(new Adjacent(al.getNode('C'), 12, 40));
         node.addNeighbor(new Adjacent(al.getNode('E'), 4, 60));
         node.addNeighbor(new Adjacent(al.getNode('G'), 6, 40));
     }

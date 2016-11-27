@@ -21,18 +21,14 @@ public class GeneticAlgorithm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainGraph mg = new MainGraph();
-        
-        AdjacencyList al = mg.getGraph();
-        List<Node> graph = al.getAdjList();
-        for (Node n : graph) {
-            System.out.print(n.getLabel() + " : ");
-            for (Adjacent a : n.getNeighbors()) {
-                System.out.print(a.getLabel().getLabel() + " ");
-            }
-            System.out.println("");
-        }
-        
+        Populasi populasi = new Populasi();
+        Populasi child = new Populasi();
+        Algorithm algo = new Algorithm();
+        populasi.createPopulasi();
+        populasi.showPopulasi();
+        System.out.println("");
+        child.getPopulasi().addAll(algo.crossover(populasi));
+        child.showPopulasi();
     }
     
 }

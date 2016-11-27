@@ -11,15 +11,19 @@ package Graph;
  */
 public class Adjacent {
     private float weight;
-    private int distance;
-    private int speed;
+    private float distance;
+    private float speed;
     private Node label;
 
     public Adjacent(Node label, int distance, int speed) {
         this.distance = distance;
         this.speed = speed;
         this.label = label;
-        weight = this.distance / this.speed;
+        if ((distance != 0) && (speed != 0)) {
+            weight = this.distance / this.speed;
+        } else {
+            weight = 0;
+        }
     }
     
     public float getWeight () {

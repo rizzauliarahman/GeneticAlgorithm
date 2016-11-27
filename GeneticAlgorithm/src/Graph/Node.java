@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class Node {
     List<Adjacent> neighbors = new ArrayList<>();
-    char label;
-    boolean visited;
+    private char label;
+    private boolean visited = false;
 
     public Node(char label) {
         this.label = label;

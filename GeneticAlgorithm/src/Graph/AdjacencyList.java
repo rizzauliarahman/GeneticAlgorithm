@@ -20,7 +20,7 @@ public class AdjacencyList {
     }
     
     public Node getNode (char label) {
-        return graph.stream().filter(o -> (o.getLabel() == label))
+        return graph.stream().filter(o -> label == o.getLabel())
                 .findFirst().orElse(null);
     }
     
