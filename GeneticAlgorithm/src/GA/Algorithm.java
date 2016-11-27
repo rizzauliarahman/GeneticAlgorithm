@@ -44,7 +44,11 @@ public class Algorithm {
             p += pop.getPopulasi().get(x).getFitness();
             x++;
         }
-        return pop.getPopulasi().get(x-1);
+        if (x == 0) {
+            return pop.getPopulasi().get(x);
+        } else {
+            return pop.getPopulasi().get(x-1);
+        }
     }
     
     public List<Kromosom> crossover(Populasi pop) {
@@ -70,18 +74,20 @@ public class Algorithm {
         int size2 = p2.getRoute().size();
         
         int iter = Integer.min(size1, size2);
-        for (int i = 1; i < iter; i++) {
+        for (int i = 2; i < iter; i++) {
             if (p1.getRoute().get(i).getLabel().getLabel() == p2.getRoute().get(i).getLabel().getLabel()) {
                 indeks.add(i);
             }
         }
-        int point = indeks.get(r.nextInt(indeks.size()));
-        List<Adjacent> temp = p1.getRoute().subList(0, point);
-        for (int i = 0; i < point; i++) {
-            p1.getRoute().set(i, p2.getRoute().get(i));
-        }
-        for (int i = 0; i < point; i++) {
-            p2.getRoute().set(i, temp.get(i));
+        if (indeks.size() > 0) {
+            int point = indeks.get(r.nextInt(indeks.size()) + 0);
+            List<Adjacent> temp = p1.getRoute().subList(0, point);
+            for (int i = 0; i < point; i++) {
+                p1.getRoute().set(i, p2.getRoute().get(i));
+            }
+            for (int i = 0; i < point; i++) {
+                p2.getRoute().set(i, temp.get(i));
+            }
         }
         child.add(p1);
         child.add(p2);
