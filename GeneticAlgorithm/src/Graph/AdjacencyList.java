@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package geneticalgorithm;
+package Graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,12 @@ public class AdjacencyList {
         graph.add(node);
     }
     
-    public Node getNode (int index) {
-        return graph.get(index);
+    public Node getNode (char label) {
+        return graph.stream().filter(o -> (o.getLabel() == label))
+                .findFirst().orElse(null);
+    }
+    
+    public List<Node> getAdjList() {
+        return graph;
     }
 }

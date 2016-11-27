@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package geneticalgorithm;
+package Graph;
 
+import Graph.Adjacent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,14 @@ import java.util.List;
 public class Node {
     List<Adjacent> neighbors = new ArrayList<>();
     char label;
+    boolean visited;
 
     public Node(char label) {
         this.label = label;
+    }
+    
+    public char getLabel() {
+        return label;
     }
     
     public void addNeighbor (Adjacent adj) {
@@ -26,6 +32,22 @@ public class Node {
     
     public Adjacent getNeighbor (int index) {
         return neighbors.get(index);
+    }
+    
+    public List<Adjacent> getNeighbors() {
+        return neighbors;
+    }
+    
+    public void visit() {
+        visited  = true;
+    }
+    
+    public void unvisit() {
+        visited = false;
+    }
+    
+    public boolean getVisited() {
+        return visited;
     }
     
 }

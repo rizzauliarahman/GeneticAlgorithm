@@ -5,6 +5,7 @@
  */
 package geneticalgorithm;
 
+import Graph.Adjacent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +14,31 @@ import java.util.List;
  * @author Asprak-69
  */
 public class Kromosom {
-    long fitness;
-    List<Character> route = new ArrayList<>();
+    float fitness;
+    List<Adjacent> route = new ArrayList<>();
+    int label;
+    
+    public Kromosom(int label) {
+        this.label = label;
+    }
 
-    public List<Character> getRoute() {
+    public List<Adjacent> getRoute() {
         return route;
     }
 
-    public void setRoute(List<Character> route) {
+    public void setRoute(List<Adjacent> route) {
         this.route = route;
     }
+    
+    public void setFitness() {
+        float total = 0;
+        for (Adjacent a : route) {
+            total = total + a.getWeight();
+        }
+        fitness = 1/total;
+    }
 
-    public long getFitness() {
+    public float getFitness() {
         return fitness;
     }
     
