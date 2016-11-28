@@ -93,4 +93,21 @@ public class Algorithm {
         child.add(p2);
         return child;
     }
+    
+    public void mutation(Kromosom k) {
+        boolean valid;
+        do {
+            valid = true;
+            int gen = r.nextInt(k.getRoute().size()-1) + 1;
+            k.getRoute().get(gen);
+            k.getRoute().set(gen, k.getRoute().get(gen - 1).getLabel().getNeighbor(r.nextInt(k.getRoute().get(gen - 1).getLabel().getNeighbors().size())));
+            for (int i = 0; i < k.getRoute().size()-1; i++) {
+                Adjacent adj = k.getRoute().get(i).getLabel().getAdjacent(k.getRoute().get(i).getLabel().getLabel());
+                if (adj == null) {
+                    valid = valid && false;
+                }
+            }
+        } while (!valid);
+        
+    }
 }

@@ -50,4 +50,9 @@ public class Node {
         return visited;
     }
     
+    public Adjacent getAdjacent (char label) {
+        return neighbors.stream().filter(o -> label == o.getLabel().getLabel())
+                .findFirst().orElse(null);
+    }
+    
 }
