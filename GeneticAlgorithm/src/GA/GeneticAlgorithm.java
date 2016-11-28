@@ -22,13 +22,9 @@ public class GeneticAlgorithm {
      */
     public static void main(String[] args) {
         Populasi populasi = new Populasi();
-        Populasi child = new Populasi();
         Algorithm algo = new Algorithm();
         populasi.createPopulasi();
-        populasi.showPopulasi();
-        System.out.println("");
-        child.getPopulasi().addAll(algo.crossover(populasi));
-        child.showPopulasi();
+        algo.evolusi(populasi);
     }
     
 }

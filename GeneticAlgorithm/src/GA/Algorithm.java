@@ -102,7 +102,7 @@ public class Algorithm {
             k.getRoute().get(gen);
             k.getRoute().set(gen, k.getRoute().get(gen - 1).getLabel().getNeighbor(r.nextInt(k.getRoute().get(gen - 1).getLabel().getNeighbors().size())));
             for (int i = 0; i < k.getRoute().size()-1; i++) {
-                Adjacent adj = k.getRoute().get(i).getLabel().getAdjacent(k.getRoute().get(i).getLabel().getLabel());
+                Adjacent adj = k.getRoute().get(i).getLabel().getAdjacent(k.getRoute().get(i+1).getLabel().getLabel());
                 if (adj == null) {
                     valid = valid && false;
                 }
@@ -111,7 +111,64 @@ public class Algorithm {
     }
     
     public void survivorSelection(List<Kromosom> child, Populasi pop) {
+        double min;
+        int idxMin;
+        for (int i = 0; i < child.size(); i++) {
+            idxMin = -1;
+            min = 9999;
+            int j;
+            for (j = 0; j < pop.getPopulasi().size(); j++) {
+                if (pop.getPopulasi().get(j).getFitness() < min) {
+                    min = pop.getPopulasi().get(j).getFitness();
+                    idxMin = j;
+                }
+            }
+            pop.getPopulasi().set(idxMin, child.get(i));
+        }
+    }
+    
+    public boolean termination(List<Double> fittestList) {
+        double fit = fittestList.get(0);
+        int count = -1;
+        for (int i = 0; i < fittestList.size(); i++) {
+            if (fittestList.get(i) == fit) {
+                count += 1;
+            } else {
+                fit = fittestList.get(i);
+                count = 0;
+            }
+        }
+        if (count < 5) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public void evolusi (Populasi pop) {
+        System.out.print("Populasi Awal : ");
+        Kromosom k = pop.getFittest();
+        for (Adjacent a : k.getRoute()) {
+            System.out.print(a.getLabel().getLabel() + " ");
+        }
+        System.out.println(" Fitness : " + k.getFitness());
         
+        for (int i = 0; i < 20; i++) {
+            int j = i + 1;
+            double evol = r.nextDouble();
+            if (evol < crossoverRate) {
+                survivorSelection(crossover(pop), pop);
+            } else {
+                Kromosom mutasi = pop.getPopulasi().get(r.nextInt(pop.getPopulasi().size()));
+                mutation(mutasi);
+            }
+            System.out.print("Generasi - " + j + " : ");
+            k = pop.getFittest();
+            for (Adjacent a : k.getRoute()) {
+                System.out.print(a.getLabel().getLabel() + " ");
+            }
+            System.out.println(" Fitness : " + k.getFitness());
+        }
     }
     
 }
