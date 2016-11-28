@@ -108,6 +108,10 @@ public class Algorithm {
                 }
             }
         } while (!valid);
+    }
+    
+    public void survivorSelection(List<Kromosom> child, Populasi pop) {
         
     }
+    
 }
