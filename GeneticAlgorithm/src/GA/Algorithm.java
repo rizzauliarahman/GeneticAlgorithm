@@ -113,21 +113,36 @@ public class Algorithm {
     public void survivorSelection(List<Kromosom> child, Populasi pop) {
         double min;
         int idxMin;
+        boolean status;
         for (int i = 0; i < child.size(); i++) {
             idxMin = -1;
             min = 9999;
             int j;
+            status = true;
             for (j = 0; j < pop.getPopulasi().size(); j++) {
                 if (pop.getPopulasi().get(j).getFitness() < min) {
                     min = pop.getPopulasi().get(j).getFitness();
                     idxMin = j;
                 }
+                Kromosom k = pop.getPopulasi().get(j);
+                int size1 = pop.getPopulasi().get(j).getRoute().size();
+                int size2 = child.get(i).getRoute().size();
+                int iter = Integer.min(size1, size2);
+                for (int x = 0; x < iter; x++) {
+                    if (k.getRoute().get(x).equals(child.get(i).getRoute().get(x))) {
+                        status = status && true;
+                    } else {
+                        status = status && false;
+                    }
+                }
             }
-            pop.getPopulasi().set(idxMin, child.get(i));
+            if (!status) {
+                pop.getPopulasi().set(idxMin, child.get(i));
+            }
         }
     }
     
-    public boolean termination(List<Double> fittestList) {
+    public boolean termination(List<Float> fittestList) {
         double fit = fittestList.get(0);
         int count = -1;
         for (int i = 0; i < fittestList.size(); i++) {
@@ -138,7 +153,7 @@ public class Algorithm {
                 count = 0;
             }
         }
-        if (count < 5) {
+        if (count < 6) {
             return false;
         } else {
             return true;
@@ -147,13 +162,17 @@ public class Algorithm {
     
     public void evolusi (Populasi pop) {
         System.out.print("Populasi Awal : ");
+        List<Float> fittestList = new ArrayList<>();
+        boolean terminate = false;
+        int i = 0;
         Kromosom k = pop.getFittest();
         for (Adjacent a : k.getRoute()) {
             System.out.print(a.getLabel().getLabel() + " ");
         }
         System.out.println(" Fitness : " + k.getFitness());
+        System.out.println("================================ EVOLUSI ===================================");
         
-        for (int i = 0; i < 20; i++) {
+        while (!terminate) {
             int j = i + 1;
             double evol = r.nextDouble();
             if (evol < crossoverRate) {
@@ -164,11 +183,16 @@ public class Algorithm {
             }
             System.out.print("Generasi - " + j + " : ");
             k = pop.getFittest();
+            fittestList.add(k.getFitness());
+            terminate = termination(fittestList);
             for (Adjacent a : k.getRoute()) {
                 System.out.print(a.getLabel().getLabel() + " ");
             }
             System.out.println(" Fitness : " + k.getFitness());
+            i += 1;
         }
+        System.out.println("================================ TERMINASI ==================================");
+        System.out.println("Waktu Optimum : " + (1 / (k.getFitness())) * 60 + " menit");
     }
     
 }

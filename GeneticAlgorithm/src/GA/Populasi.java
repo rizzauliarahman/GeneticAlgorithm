@@ -44,7 +44,7 @@ public class Populasi {
         Kromosom k;
         List<Adjacent> route;
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             boolean found = false;
             do {
                 k = new Kromosom();
